@@ -1,0 +1,24 @@
+#Search Mailbox for Subject, Sender or Recipient & Delete
+Add-PSSnapin Microsoft.Exchange.Managment.Powerhshell.SnapIn;
+
+$a = Get-TransportService | Get-MessageTrackingLog -Sender "Email@Domain.com" -Start (Get-Date).AddDays(-x)
+$b = $a | Select -ExpandProperty Recipients -Unique
+
+#Search Query based on Sender will send results to mailbox as a single search result.
+$b | Search-Mailbox -SearchQuery 'From:"Email@Domain"' -TargetMailbox Benjamin.ashlin@domain.com -TargetFolder "Search-Results" -Logonly -Loglevel Full
+
+#Search Query based on Sender will send results to mailbox with individual results search. Need to print results from $b between @' and @'
+$mailboxes = @'
+user@domain
+user2@domain
+user3@domain
+@' -split '\n'
+$mailboxes | Search-Mailbox -SearchQuery 'From:"Email@Domain"' -TargetMailbox Benjamin.ashlin@domain.com -TargetFolder "Search-Results" -Logonly -Loglevel Full
+
+#SearchQuery based on multiple values
+#$b | Search-Mailbox -SearchQuery '(From:"Email@Domain") AND (Subject:"Action Pending")' -TargetMailbox Benjamin.ashlin@domain.com -TargetFolder "Search-Results" -Logonly -Loglevel Full
+
+#Review Search Results and CSV in Mailbox
+
+#To Delete
+$b | Search-Mailbox -SearchQuery 'From:"Email@Domain"' -TargetMailbox Benjamin.ashlin@domain.com -TargetFolder "Search-Results" -Loglevel Full -DeleteContent

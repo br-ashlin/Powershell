@@ -1,0 +1,8 @@
+#Set Powershell Parameters
+Set-ExecutionPolicy Unrestricted
+
+#Download and Install PowerCLI
+Install-Module -Name VMware.PowerCLI -Confirm:$False
+
+#Set PowerCLI to ignore Invalid Certificate
+Set-PowerCLIConfigurationPolicy -InvalidCertificateAction Ignore -Confirm:$False

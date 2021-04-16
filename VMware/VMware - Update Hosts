@@ -1,0 +1,12 @@
+#Log into host as root@ssh
+#Check current VMware Level
+vmware -vl
+
+#Upload offline bundle to datastore, Check Profiles available.
+esxcli software sources profile list -d /vmfs/volumes/datastore1/update-from-esxi6.7-6.7_update03.zip
+
+#Select Profile and run update
+esxcli software profile update -p ESXi-6.7.0-20190801001s-standard -d /vmfs/volumes/datastore1/update-from-esxi6.7-6.7_update03.zip
+
+#Check status of update & reboot
+reboot

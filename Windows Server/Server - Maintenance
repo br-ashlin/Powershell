@@ -1,0 +1,2 @@
+gwmi -Query "select * from win32_logicaldisk where drivetype='3'" | select -expand deviceid | %{chkdsk $_}
+gwmi -Query "select * from win32_logicaldisk where drivetype='3'" | select -expand deviceid | %{chkntfs $_}
