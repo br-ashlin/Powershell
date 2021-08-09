@@ -1,0 +1,5 @@
+#Check AD Domain functional Level per DC
+repadmin.exe /showattr *.sub.domain.tld "dc=sub,dc=domain,dc=tld" /atts:msDS-Behavior-Version
+
+#check for the password reset on the built-in krbtgt account.
+repadmin.exe /showattr *.sub.domain.tld "cn=krbtgt,cn=users,dc=sub,dc=domain,dc=tld" /atts:pwdLastSet
