@@ -14,7 +14,7 @@ Connect-MsolService -Credential $Creds
 #Bulk User Get (CSV)
 Import-CSV <Location> | Foreach {
 $UPN = $_.UserPrincipalName
-Set-MsolUserlicense -UserPrincipalName $UPN -AddLicenses "domain:LICENCE" #License like vmch:ENTERPRISEPACK
+Set-MsolUserlicense -UserPrincipalName $UPN -AddLicenses "domain:LICENCE" #License like xxxx:ENTERPRISEPACK
 Set-MsolUser -UserPrincipalName $UPN -UsageLocation "AU" 
 } 
 
