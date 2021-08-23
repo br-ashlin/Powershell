@@ -3,3 +3,17 @@ repadmin.exe /showattr *.sub.domain.tld "dc=sub,dc=domain,dc=tld" /atts:msDS-Beh
 
 #check for the password reset on the built-in krbtgt account.
 repadmin.exe /showattr *.sub.domain.tld "cn=krbtgt,cn=users,dc=sub,dc=domain,dc=tld" /atts:pwdLastSet
+
+
+#Check KRBTGT Accounts in Forest, PasswordLastSet
+
+import-module activedirectory
+$ADForestRootDomain = (Get-ADForest).RootDomain
+$AllADForestDomains = (Get-ADForest).Domains
+$ForestKRBTGTInfo = @()
+ForEach ($AllADForestDomainsItem in $AllADForestDomains)
+{
+[string]$DomainDC = (Get-ADDomainController -Discover -Force -Service “PrimaryDC” -DomainName $AllADForestDomainsItem).HostName
+[array]$ForestKRBTGTInfo += Get-ADUser -Filter 'Name -Like "krbtgt*"' -Server $DomainDC -Prop Name,Created,logonCount,Modified,PasswordLastSet,PasswordExpired,msDS-KeyVersionNumber,CanonicalName,msDS-KrbTgtLinkBl
+}
+$ForestKRBTGTInfo | Select Name,Created,logonCount,PasswordLastSet,PasswordExpired,msDS-KeyVersionNumber,CanonicalName | ft -auto
