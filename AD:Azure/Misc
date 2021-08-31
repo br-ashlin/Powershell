@@ -17,3 +17,12 @@ ForEach ($AllADForestDomainsItem in $AllADForestDomains)
 [array]$ForestKRBTGTInfo += Get-ADUser -Filter 'Name -Like "krbtgt*"' -Server $DomainDC -Prop Name,Created,logonCount,Modified,PasswordLastSet,PasswordExpired,msDS-KeyVersionNumber,CanonicalName,msDS-KrbTgtLinkBl
 }
 $ForestKRBTGTInfo | Select Name,Created,logonCount,PasswordLastSet,PasswordExpired,msDS-KeyVersionNumber,CanonicalName | ft -auto
+
+
+#Track GPO changes originating server
+
+#Get GPO ID
+Get-GPO -Name <Name> -Domain <Domain> 
+#Select ID
+
+repadmin /showmeta . "CN={GPO ID},CN=policies,CN=system,dc=adsec,dc=lab,dc=com"
