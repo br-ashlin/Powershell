@@ -1,6 +1,6 @@
 #Bulk Server and Port Network Scanning
 
-$Ports  = "135","443", "5286" 
+$Ports  = "135","443","5286" 
 $Servers = Get-Content servers.txt 
 ForEach($Server in $Servers)
 {
