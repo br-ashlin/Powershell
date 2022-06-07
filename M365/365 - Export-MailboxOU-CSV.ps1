@@ -1,13 +1,13 @@
 ﻿#Ben Ashlin - Get-Mailboxes per OU and Export required data to CSV for Office365 Licensing.
 
 #Specify OU required here
-$OU = "catholic.int/VMCH/Sites/Ballarat/Users"
+$OU = "xx"
 
 #Specify Mail Server Here
-$MS = "cath-mail01"
+$MS = "xxx"
 
 #Specify Location of CSV Output Folder
-$CSV = "\\cath-mail01\I$\CSV-Export"
+$CSV = "xxx"
 
 #Connect To Mail Server & Add Exchange shell Snapin
 
